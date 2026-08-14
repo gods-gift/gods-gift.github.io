@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Veenu Chhabra · M.S. CSE @ IIT Bombay</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --bg:#04070E;
+  --bg1:#090F1D;
+  --bg2:#0E1728;
+  --indigo:#5B70FF;
+  --indigo-dim:rgba(91,112,255,0.12);
+  --cyan:#00C4DC;
+  --cyan-dim:rgba(0,196,220,0.12);
+  --violet:#9B6FFF;
+  --violet-dim:rgba(155,111,255,0.12);
+  --gold:#FFB347;
+  --text:#E4ECFF;
+  --text2:#7A8FAD;
+  --text3:#3E506A;
+  --border:rgba(255,255,255,0.06);
+  --border2:rgba(255,255,255,0.13);
+  --r:12px;
+  --t:.25s ease;
+}
+
+html{scroll-behavior:smooth;font-size:16px}
+body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;line-height:1.7;overflow-x:hidden}
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--indigo);border-radius:2px}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:.9rem 2.5rem;display:flex;align-items:center;justify-content:space-between;background:rgba(4,7,14,.85);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--border);transition:var(--t)}
+.nav-logo{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1.15rem;color:var(--text);text-decoration:none;letter-spacing:-.02em}
+.nav-logo span{color:var(--indigo)}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{color:var(--text2);text-decoration:none;font-size:.85rem;font-weight:500;letter-spacing:.02em;transition:color var(--t)}
+.nav-links a:hover{color:var(--text)}
+.nav-cta{background:var(--indigo);color:#fff;padding:.45rem 1.1rem;border-radius:7px;font-size:.8rem;font-weight:600;text-decoration:none;transition:background var(--t)}
+.nav-cta:hover{background:#4A5FEF}
+
+/* ── HERO ── */
+#hero{position:relative;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;overflow:hidden;padding:2rem}
+#hero-canvas{position:absolute;inset:0;width:100%;height:100%}
+.hero-content{position:relative;z-index:2;max-width:820px}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:.5rem;background:rgba(91,112,255,.1);border:1px solid rgba(91,112,255,.25);color:var(--indigo);font-family:'JetBrains Mono',monospace;font-size:.72rem;letter-spacing:.06em;padding:.4rem 1.1rem;border-radius:100px;margin-bottom:2rem}
+.hero-eyebrow-dot{width:6px;height:6px;background:var(--indigo);border-radius:50%;animation:pdot 2.2s ease infinite}
+@keyframes pdot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.35;transform:scale(.6)}}
+.hero-name{font-family:'Space Grotesk',sans-serif;font-size:clamp(2.8rem,7vw,6rem);font-weight:700;letter-spacing:-.045em;line-height:.95;margin-bottom:1.6rem;background:linear-gradient(140deg,#E4ECFF 0%,#A0B4F0 45%,#5B70FF 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-subtitle{font-size:1.05rem;color:var(--text2);margin-bottom:2.5rem;max-width:580px;margin-left:auto;margin-right:auto;line-height:1.7}
+.hero-subtitle strong{color:var(--text);font-weight:500}
+.hero-stats{display:flex;gap:0;justify-content:center;margin-bottom:2.75rem;background:var(--bg1);border:1px solid var(--border);border-radius:var(--r);overflow:hidden}
+.hero-stat{padding:1.1rem 2.2rem;text-align:center;border-right:1px solid var(--border)}
+.hero-stat:last-child{border-right:none}
+.hero-stat-num{font-family:'Space Grotesk',sans-serif;font-size:1.8rem;font-weight:700;color:var(--text);display:block;line-height:1}
+.hero-stat-label{font-size:.68rem;color:var(--text3);text-transform:uppercase;letter-spacing:.09em;margin-top:.35rem;display:block}
+.hero-cta{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:.45rem;padding:.75rem 1.8rem;border-radius:8px;font-size:.875rem;font-weight:500;text-decoration:none;transition:all var(--t);cursor:pointer;border:none;font-family:'Inter',sans-serif}
+.btn-primary{background:var(--indigo);color:#fff}
+.btn-primary:hover{background:#4A5FEF;transform:translateY(-1px)}
+.btn-outline{background:transparent;color:var(--text2);border:1px solid var(--border2)}
+.btn-outline:hover{color:var(--text);border-color:var(--text2);transform:translateY(-1px)}
+.scroll-hint{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);color:var(--text3);font-size:.7rem;letter-spacing:.07em;display:flex;flex-direction:column;align-items:center;gap:.5rem;animation:flt 2.5s ease infinite}
+@keyframes flt{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(-6px)}}
+
+/* ── LAYOUT ── */
+.section-wrap{padding:5.5rem 2rem;max-width:1080px;margin:0 auto}
+.divider{height:1px;background:var(--border);max-width:1080px;margin:0 auto}
+.section-eyebrow{font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--indigo);letter-spacing:.12em;text-transform:uppercase;margin-bottom:.75rem}
+.section-title{font-family:'Space Grotesk',sans-serif;font-size:clamp(1.8rem,4vw,2.75rem);font-weight:700;letter-spacing:-.035em;line-height:1.05;color:var(--text);margin-bottom:2.75rem}
+
+/* ── ABOUT ── */
+.about-grid{display:grid;grid-template-columns:1fr 1.05fr;gap:4rem;align-items:start}
+.about-text p{color:var(--text2);margin-bottom:1.25rem;font-size:.975rem;line-height:1.82}
+.about-text p strong{color:var(--text);font-weight:500}
+.edu-stack{display:flex;flex-direction:column;gap:2px}
+.edu-row{background:var(--bg1);border:1px solid var(--border);border-radius:10px;padding:1.1rem 1.3rem;display:grid;grid-template-columns:1fr auto;gap:.5rem;align-items:center;transition:background var(--t),border-color var(--t)}
+.edu-row:hover{background:var(--bg2);border-color:var(--border2)}
+.edu-degree{font-size:.875rem;font-weight:500;color:var(--text);margin-bottom:.22rem}
+.edu-inst{font-size:.72rem;color:var(--text2)}
+.edu-score{text-align:right}
+.edu-num{font-family:'JetBrains Mono',monospace;font-size:1.05rem;font-weight:500;color:var(--indigo);display:block}
+.edu-year{font-size:.65rem;color:var(--text3)}
+
+/* ── RESEARCH CARDS ── */
+.research-list{display:flex;flex-direction:column;gap:1.4rem}
+.r-card{background:var(--bg1);border:1px solid var(--border);border-radius:var(--r);padding:1.8rem;display:grid;grid-template-columns:48px 1fr;gap:1.5rem;transition:all var(--t);position:relative;overflow:hidden}
+.r-card::after{content:'';position:absolute;inset:0;opacity:0;transition:opacity var(--t)}
+.r-card:hover{border-color:var(--border2);transform:translateY(-2px)}
+.r-card.c-indigo{border-left:3px solid var(--indigo)}
+.r-card.c-indigo::after{background:radial-gradient(ellipse at 0% 50%,rgba(91,112,255,.05) 0%,transparent 60%)}
+.r-card.c-indigo:hover::after{opacity:1}
+.r-card.c-cyan{border-left:3px solid var(--cyan)}
+.r-card.c-cyan::after{background:radial-gradient(ellipse at 0% 50%,rgba(0,196,220,.05) 0%,transparent 60%)}
+.r-card.c-cyan:hover::after{opacity:1}
+.r-card.c-violet{border-left:3px solid var(--violet)}
+.r-card.c-violet::after{background:radial-gradient(ellipse at 0% 50%,rgba(155,111,255,.05) 0%,transparent 60%)}
+.r-card.c-violet:hover::after{opacity:1}
+.r-icon{width:48px;height:48px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:1.35rem;flex-shrink:0}
+.r-icon.i{background:var(--indigo-dim)}
+.r-icon.c{background:var(--cyan-dim)}
+.r-icon.v{background:var(--violet-dim)}
+.r-meta{font-family:'JetBrains Mono',monospace;font-size:.65rem;color:var(--text3);letter-spacing:.06em;margin-bottom:.45rem}
+.r-title{font-family:'Space Grotesk',sans-serif;font-size:1.05rem;font-weight:600;color:var(--text);line-height:1.3;margin-bottom:.4rem}
+.r-guide{font-size:.775rem;color:var(--text2);margin-bottom:.85rem}
+.r-badge{display:inline-block;font-size:.62rem;font-family:'JetBrains Mono',monospace;letter-spacing:.05em;text-transform:uppercase;padding:.25rem .65rem;border-radius:5px;margin-right:.4rem;margin-bottom:.85rem}
+.rb-t{background:rgba(91,112,255,.14);color:#8FA0FF}
+.rb-c{background:rgba(0,196,220,.14);color:#00D4F0}
+.rb-r{background:rgba(155,111,255,.14);color:#BE9FFF}
+.rb-k{background:rgba(255,179,71,.12);color:var(--gold)}
+.r-bullets{list-style:none;display:flex;flex-direction:column;gap:.42rem}
+.r-bullets li{font-size:.815rem;color:var(--text2);padding-left:1.1rem;position:relative;line-height:1.55}
+.r-bullets li::before{content:'›';position:absolute;left:0;color:var(--text3);font-size:.95rem}
+
+/* ── PROJECTS ── */
+.proj-tabs{display:flex;gap:.4rem;background:var(--bg1);padding:.3rem;border-radius:9px;border:1px solid var(--border)}
+.tab-btn{padding:.4rem 1.1rem;border-radius:7px;font-size:.8rem;font-weight:500;cursor:pointer;transition:all var(--t);border:none;background:transparent;color:var(--text2);font-family:'Inter',sans-serif}
+.tab-btn.active{background:var(--bg2);color:var(--text);box-shadow:0 1px 4px rgba(0,0,0,.35)}
+.proj-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:1.2rem;display:none}
+.proj-grid.active{display:grid}
+.p-card{background:var(--bg1);border:1px solid var(--border);border-radius:var(--r);padding:1.5rem;transition:all var(--t);display:flex;flex-direction:column;gap:.8rem}
+.p-card:hover{border-color:var(--border2);transform:translateY(-2px);background:var(--bg2)}
+.p-card-top{display:flex;justify-content:space-between;align-items:flex-start;gap:.75rem}
+.p-icon{font-size:1.55rem;line-height:1}
+.p-meta{text-align:right}
+.p-title{font-family:'Space Grotesk',sans-serif;font-size:.96rem;font-weight:600;color:var(--text);line-height:1.3}
+.p-period{font-family:'JetBrains Mono',monospace;font-size:.63rem;color:var(--text3);letter-spacing:.05em;margin-top:.15rem}
+.p-desc{font-size:.81rem;color:var(--text2);line-height:1.65}
+.p-tags{display:flex;flex-wrap:wrap;gap:.35rem;margin-top:auto}
+.tag{font-size:.63rem;font-family:'JetBrains Mono',monospace;padding:.2rem .55rem;border-radius:4px;background:rgba(255,255,255,.04);border:1px solid var(--border);color:var(--text3)}
+
+/* ── SKILLS ── */
+.skills-wrap{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem}
+.sk-group{background:var(--bg1);border:1px solid var(--border);border-radius:var(--r);padding:1.5rem}
+.sk-title{font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--text3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:1rem}
+.sk-pills{display:flex;flex-wrap:wrap;gap:.45rem}
+.sk{font-size:.78rem;padding:.32rem .72rem;border-radius:6px;background:rgba(255,255,255,.04);border:1px solid var(--border);color:var(--text2);transition:all var(--t);cursor:default}
+.sk:hover{background:var(--indigo-dim);border-color:rgba(91,112,255,.3);color:var(--text)}
+.sk.hl{background:var(--indigo-dim);border-color:rgba(91,112,255,.22);color:#A0ADFF}
+.courses-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:.5rem;margin-top:2rem}
+.c-item{background:var(--bg1);border:1px solid var(--border);border-radius:8px;padding:.7rem 1rem;font-size:.82rem;color:var(--text2);display:flex;gap:.75rem;align-items:center;transition:all var(--t)}
+.c-item:hover{border-color:var(--border2);color:var(--text)}
+.c-code{font-family:'JetBrains Mono',monospace;font-size:.67rem;color:var(--indigo);white-space:nowrap;flex-shrink:0}
+
+/* ── RESPONSIBILITIES ── */
+.resp-list{display:flex;flex-direction:column;gap:1.25rem}
+.resp-card{background:var(--bg1);border:1px solid var(--border);border-left:3px solid rgba(91,112,255,.45);border-radius:var(--r);padding:1.5rem;transition:all var(--t)}
+.resp-card:hover{border-color:var(--border2);border-left-color:var(--indigo)}
+.resp-title{font-family:'Space Grotesk',sans-serif;font-size:1rem;font-weight:600;color:var(--text)}
+.resp-org{font-size:.775rem;color:var(--indigo);font-weight:500;margin:.3rem 0 .85rem}
+.resp-buls{list-style:none;display:flex;flex-direction:column;gap:.35rem}
+.resp-buls li{font-size:.82rem;color:var(--text2);padding-left:1rem;position:relative;line-height:1.55}
+.resp-buls li::before{content:'•';position:absolute;left:0;color:var(--text3)}
+
+/* ── ACHIEVEMENTS ── */
+.ach-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem}
+.ach-card{background:var(--bg1);border:1px solid var(--border);border-radius:var(--r);padding:1.25rem;display:flex;gap:1rem;align-items:flex-start;transition:all var(--t)}
+.ach-card:hover{border-color:var(--border2);transform:translateY(-1px)}
+.ach-icon{font-size:1.5rem;flex-shrink:0;line-height:1;margin-top:.1rem}
+.ach-text{font-size:.86rem;color:var(--text2);line-height:1.55}
+.ach-text strong{color:var(--text);font-weight:500}
+
+/* ── FOOTER ── */
+footer{text-align:center;padding:4.5rem 2rem;border-top:1px solid var(--border)}
+.footer-name{font-family:'Space Grotesk',sans-serif;font-size:1.75rem;font-weight:700;letter-spacing:-.035em;color:var(--text);margin-bottom:.4rem}
+.footer-sub{color:var(--text3);font-size:.82rem;margin-bottom:2rem}
+.footer-links{display:flex;gap:.75rem;justify-content:center;flex-wrap:wrap;margin-bottom:2rem}
+/* NOTE: Update href values below with your real email, LinkedIn, GitHub */
+.flink{display:inline-flex;align-items:center;gap:.4rem;color:var(--text2);text-decoration:none;font-size:.85rem;padding:.5rem 1.1rem;border:1px solid var(--border);border-radius:8px;transition:all var(--t)}
+.flink:hover{color:var(--text);border-color:var(--border2)}
+.footer-copy{font-size:.72rem;color:var(--text3)}
+
+/* ── FADE IN ── */
+.fi{opacity:0;transform:translateY(18px);transition:opacity .65s ease,transform .65s ease}
+.fi.vis{opacity:1;transform:translateY(0)}
+.fi-d1{transition-delay:.1s}.fi-d2{transition-delay:.2s}.fi-d3{transition-delay:.3s}
+
+/* ── RESUME MODE SWITCHER ── */
+#resume-switcher{position:fixed;bottom:1.75rem;right:1.75rem;z-index:998;background:var(--bg2);border:1px solid var(--border2);border-radius:50px;padding:.3rem;display:flex;align-items:center;gap:.15rem;box-shadow:0 8px 32px rgba(0,0,0,.65),0 2px 8px rgba(0,0,0,.3)}
+.rm-label{font-family:'JetBrains Mono',monospace;font-size:.6rem;color:var(--text3);letter-spacing:.07em;padding:.45rem .8rem;white-space:nowrap}
+.rm-btn{padding:.5rem 1.15rem;border-radius:50px;font-size:.78rem;font-weight:600;cursor:pointer;transition:all .22s ease;border:none;background:transparent;color:var(--text2);font-family:'Inter',sans-serif;display:flex;align-items:center;gap:.4rem;white-space:nowrap;letter-spacing:.01em}
+.rm-btn:hover:not(.active){color:var(--text);background:rgba(255,255,255,.05)}
+.rm-btn.active.ml-mode{background:var(--indigo);color:#fff;box-shadow:0 2px 14px rgba(91,112,255,.45)}
+.rm-btn.active.sys-mode{background:var(--cyan);color:#030B12;box-shadow:0 2px 14px rgba(0,196,220,.4)}
+/* Mode banner */
+#mode-banner{position:fixed;top:56px;left:50%;transform:translateX(-50%);z-index:997;font-family:'JetBrains Mono',monospace;font-size:.65rem;letter-spacing:.07em;padding:.35rem 1rem;border-radius:0 0 8px 8px;border:1px solid transparent;border-top:none;transition:all .3s ease;pointer-events:none;opacity:0}
+#mode-banner.vis{opacity:1}
+#mode-banner.ml-mode{background:rgba(91,112,255,.12);border-color:rgba(91,112,255,.25);color:var(--indigo)}
+#mode-banner.sys-mode{background:rgba(0,196,220,.1);border-color:rgba(0,196,220,.22);color:var(--cyan)}
+/* Dimmed cards */
+.p-card.dimmed,.r-card.dimmed{opacity:.15;pointer-events:none;filter:grayscale(.4);transition:opacity .3s ease,filter .3s ease}
+.p-card.active-card,.r-card.active-card{transition:opacity .3s ease,filter .3s ease}
+
+/* ── RESPONSIVE ── */
+@media(max-width:768px){
+  nav{padding:.8rem 1.25rem}.nav-links{display:none}.hero-stats{flex-wrap:wrap}
+  .about-grid{grid-template-columns:1fr;gap:2.5rem}
+  .skills-wrap{grid-template-columns:1fr}.ach-grid{grid-template-columns:1fr}
+  .courses-grid{grid-template-columns:1fr}.section-wrap{padding:4rem 1.25rem}
+  .r-card{grid-template-columns:1fr}.r-icon{display:none}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════ NAV ═══════════════ -->
+<nav id="main-nav">
+  <a href="#hero" class="nav-logo">VC<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#research">Research</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Get in touch</a>
+</nav>
+
+<!-- ═══════════════ HERO ═══════════════ -->
+<section id="hero">
+  <canvas id="hero-canvas"></canvas>
+  <div class="hero-content">
+    <div class="hero-eyebrow">
+      <span class="hero-eyebrow-dot"></span>
+      M.S. CSE · IIT Bombay · Roll No. 24M2135
+    </div>
+    <h1 class="hero-name">Veenu Chhabra</h1>
+    <p class="hero-subtitle" id="hero-subtitle">
+      <strong>ML Researcher &amp; Systems Engineer.</strong> I study how graph topology limits
+      information flow in neural networks, collaborate with Dolby on VLM pipelines,
+      and build things like container runtimes and distributed databases from scratch.
+    </p>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <span class="hero-stat-num">9.34</span>
+        <span class="hero-stat-label">M.S. CPI</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-num">#1</span>
+        <span class="hero-stat-label">B.Tech Rank</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-num">10+</span>
+        <span class="hero-stat-label">Projects</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-num">3</span>
+        <span class="hero-stat-label">Research Works</span>
+      </div>
+    </div>
+    <div class="hero-cta">
+      <a href="#research" class="btn btn-primary" id="hero-cta-primary">View Research ↓</a>
+      <a href="#contact" class="btn btn-outline">Resume &amp; Contact</a>
+    </div>
+  </div>
+  <div class="scroll-hint">
+    <svg width="16" height="22" viewBox="0 0 16 22" fill="none" stroke="currentColor" stroke-width="1.5">
+      <rect x="1" y="1" width="14" height="20" rx="7"/>
+      <circle cx="8" cy="7.5" r="2" fill="currentColor" stroke="none"/>
+    </svg>
+    scroll
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════════ ABOUT + EDUCATION ═══════════════ -->
+<div class="section-wrap" id="about">
+  <div class="section-eyebrow fi">// about</div>
+  <div class="section-title fi fi-d1">Background</div>
+  <div class="about-grid">
+    <div class="about-text fi fi-d1">
+      <p>
+        I'm Veenu Chhabra, a Master's student at <strong>IIT Bombay</strong> (Roll No. 24M2135) in the Department
+        of Computer Science &amp; Engineering, working with Prof. Abir De on my thesis about over-squashing in
+        Graph Neural Networks — why graph topology creates information bottlenecks and how to fix them.
+      </p>
+      <p>
+        My work spans <strong>theoretical ML</strong> (graph curvature, spectral methods, effective
+        resistance) and <strong>hardcore systems engineering</strong>: I've built distributed key-value
+        stores, Unix shells, and a Docker-like container runtime from the ground up — all in C/C++.
+      </p>
+      <p>
+        I also work with <strong>Dolby Laboratories</strong> on an automated pipeline that turns raw video
+        into graph-structured datasets using Vision-Language Models. Previously, I graduated as
+        <strong>Department Rank 1</strong> in B.Tech IT and ranked Top 10 in IIT Bombay's ML Kaggle competition.
+      </p>
+      <p>
+        Outside the lab, I enjoy cricket, music, and planning travel itineraries I may or may not execute.
+      </p>
+    </div>
+    <div class="fi fi-d2">
+      <div class="edu-stack">
+        <div class="edu-row">
+          <div>
+            <div class="edu-degree">M.S. — Computer Science &amp; Engineering</div>
+            <div class="edu-inst">Indian Institute of Technology Bombay</div>
+          </div>
+          <div class="edu-score">
+            <span class="edu-num">9.34</span>
+            <span class="edu-year">Present</span>
+          </div>
+        </div>
+        <div class="edu-row">
+          <div>
+            <div class="edu-degree">B.Tech — Information Technology</div>
+            <div class="edu-inst">GCETT, Serampore · MAKAUT</div>
+          </div>
+          <div class="edu-score">
+            <span class="edu-num">9.30</span>
+            <span class="edu-year">2024</span>
+          </div>
+        </div>
+        <div class="edu-row">
+          <div>
+            <div class="edu-degree">Intermediate · ISC</div>
+            <div class="edu-inst">St. Patrick's H.S. School, Asansol</div>
+          </div>
+          <div class="edu-score">
+            <span class="edu-num">87.25%</span>
+            <span class="edu-year">2019</span>
+          </div>
+        </div>
+        <div class="edu-row">
+          <div>
+            <div class="edu-degree">Matriculation · ICSE</div>
+            <div class="edu-inst">St. Patrick's H.S. School, Asansol</div>
+          </div>
+          <div class="edu-score">
+            <span class="edu-num">91.60%</span>
+            <span class="edu-year">2017</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ═══════════════ RESEARCH ═══════════════ -->
+<div class="section-wrap" id="research">
+  <div class="section-eyebrow fi">// research</div>
+  <div class="section-title fi fi-d1">Research &amp; Collaboration</div>
+  <div class="research-list">
+
+    <div class="r-card c-indigo fi">
+      <div class="r-icon i">🔬</div>
+      <div>
+        <span class="r-badge rb-t">M.S. Thesis</span>
+        <div class="r-meta">MAR 2026 — PRESENT</div>
+        <div class="r-title">Understanding and Mitigating Over-Squashing in Graph Neural Networks</div>
+        <div class="r-guide">Guide: Dr. Abir De · Department of CSE, IIT Bombay</div>
+        <ul class="r-bullets">
+          <li>Investigating over-squashing — how graph topology and message-passing create information bottlenecks that restrict long-range propagation and limit GNN expressiveness.</li>
+          <li>Analyzing bottlenecks through effective resistance, graph curvature, spectral graph theory, and Jacobian sensitivity metrics to characterize structural failure modes.</li>
+          <li>Exploring task-aware diagnostics, graph rewiring strategies, and topology-aware architectures to improve information propagation on diverse graph learning benchmarks.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="r-card c-cyan fi fi-d1">
+      <div class="r-icon c">🎬</div>
+      <div>
+        <span class="r-badge rb-c">Dolby Collaboration</span>
+        <span class="r-badge rb-k">Research Assistant</span>
+        <div class="r-meta">AUG 2025 — DEC 2025</div>
+        <div class="r-title">Video-to-Graph Dataset Generation using Vision-Language Models</div>
+        <div class="r-guide">Collaboration with Dolby Laboratories · Guide: Dr. Abir De</div>
+        <ul class="r-bullets">
+          <li>Built an automated pipeline for generating graph-structured video datasets using VLMs — extracting entities, relationships, temporal events, and hierarchical scene info from raw video sequences.</li>
+          <li>Designed a multi-stage framework incorporating prompt decomposition, response aggregation, conflict resolution, and object grounding to convert VLM outputs into structured graph representations.</li>
+          <li>Evaluated Qwen-VL, DeepSeek-VL2, GroundingDINO, and YOLO to improve semantic extraction quality while significantly reducing reliance on manual annotation.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="r-card c-violet fi fi-d2">
+      <div class="r-icon v">🛡️</div>
+      <div>
+        <span class="r-badge rb-r">M.S. R&amp;D</span>
+        <div class="r-meta">JAN 2025 — MAY 2025</div>
+        <div class="r-title">Adversarial Attacks on Deep Learning Models and GNNs</div>
+        <div class="r-guide">CS778: M.S. R&amp;D 2 · Guide: Dr. Abir De</div>
+        <ul class="r-bullets">
+          <li>Benchmarked gradient-based attacks (FGSM, PGD, C&amp;W) and graph perturbation techniques (Nettack, Metattack) across diverse threat models and network architectures.</li>
+          <li>Reproduced experimental findings on baseline models, validating attack success rates under both white-box and black-box settings on standard benchmarks.</li>
+          <li>Evaluated SOTA adversarial defense techniques across DL and GNN architectures — assessing robustness guarantees, attack resilience, and performance degradation.</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ═══════════════ PROJECTS ═══════════════ -->
+<div class="section-wrap" id="projects">
+  <div class="section-eyebrow fi">// projects</div>
+  <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:2.75rem;flex-wrap:wrap;gap:1rem">
+    <h2 class="section-title fi fi-d1" style="margin-bottom:0">Engineering &amp; Course Work</h2>
+    <div class="proj-tabs fi fi-d2">
+      <button class="tab-btn active" onclick="switchTab('self',this)">Self Projects</button>
+      <button class="tab-btn" onclick="switchTab('course',this)">Course Projects</button>
+    </div>
+  </div>
+
+  <!-- SELF PROJECTS -->
+  <div class="proj-grid active" id="self-projects">
+    <div class="p-card fi" data-type="systems">
+      <div class="p-card-top">
+        <span class="p-icon">🌐</span>
+        <div class="p-meta">
+          <div class="p-title">Mini-Torrent</div>
+          <div class="p-period">JUL'25 – SEP'25</div>
+        </div>
+      </div>
+      <div class="p-desc">P2P file sharing system with group-based access control and a centralized tracker managing auth, metadata, and seeder/leecher lists. Multi-threaded socket server for concurrent uploads/downloads with SHA-1 piece-wise integrity verification and efficient piece selection.</div>
+      <div class="p-tags">
+        <span class="tag">C++</span><span class="tag">Sockets</span><span class="tag">Multi-threading</span><span class="tag">SHA-1</span><span class="tag">P2P</span>
+      </div>
+    </div>
+
+    <div class="p-card fi fi-d1" data-type="systems">
+      <div class="p-card-top">
+        <span class="p-icon">📁</span>
+        <div class="p-meta">
+          <div class="p-title">GitLite</div>
+          <div class="p-period">OCT'24 – DEC'24</div>
+        </div>
+      </div>
+      <div class="p-desc">Custom C++ version control system inspired by Git — supports add, commit, branch, checkout, revert, diff with content-addressable storage, SHA-1 hashing via OpenSSL, zlib compression, and an LCS-based diff algorithm for precise line-level change detection.</div>
+      <div class="p-tags">
+        <span class="tag">C++</span><span class="tag">OpenSSL</span><span class="tag">zlib</span><span class="tag">LCS</span><span class="tag">VCS</span>
+      </div>
+    </div>
+
+    <div class="p-card fi fi-d2" data-type="systems">
+      <div class="p-card-top">
+        <span class="p-icon">🐳</span>
+        <div class="p-meta">
+          <div class="p-title">Docker-like Container Runtime</div>
+          <div class="p-period">NOV'25 – JAN'26</div>
+        </div>
+      </div>
+      <div class="p-desc">Container runtime in Bash/C using Linux namespaces (PID, UTS, network, mount, IPC) via unshare/clone/setns. Dockerfile-style image builds with debootstrap + layered OverlayFS. Networking via veth pairs + iptables NAT/DNAT. Multi-container service orchestrator on top.</div>
+      <div class="p-tags">
+        <span class="tag">Linux</span><span class="tag">Namespaces</span><span class="tag">OverlayFS</span><span class="tag">iptables</span><span class="tag">C</span><span class="tag">Bash</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- COURSE PROJECTS -->
+  <div class="proj-grid" id="course-projects">
+    <div class="p-card fi" data-type="systems">
+      <div class="p-card-top">
+        <span class="p-icon">🖥️</span>
+        <div class="p-meta">
+          <div class="p-title">Distributed KV Server</div>
+          <div class="p-period">AUG'25 – SEP'25</div>
+        </div>
+      </div>
+      <div class="p-desc">HTTP-based distributed key-value store in C++ with consistent hashing (FNV-1a, 150 virtual nodes), quorum replication (N=3, W=2), PostgreSQL-backed persistence, thread-pooled server, and USL-fitting scalability analysis. CS744.</div>
+      <div class="p-tags">
+        <span class="tag">C++</span><span class="tag">Consistent Hashing</span><span class="tag">PostgreSQL</span><span class="tag">CS744</span>
+      </div>
+    </div>
+
+    <div class="p-card fi fi-d1" data-type="systems">
+      <div class="p-card-top">
+        <span class="p-icon">⌨️</span>
+        <div class="p-meta">
+          <div class="p-title">Unix Shell Interpreter</div>
+          <div class="p-period">SEP'25 – NOV'25</div>
+        </div>
+      </div>
+      <div class="p-desc">Full Unix shell from scratch in C++ — foreground/background jobs, pipelines, I/O redirection, SIGINT/SIGCHLD handlers, zombie-free non-blocking reaping, built-in commands (cd, jobs, kill), and persistent !!/!n history. CS744.</div>
+      <div class="p-tags">
+        <span class="tag">C++</span><span class="tag">POSIX</span><span class="tag">Signals</span><span class="tag">Process Groups</span>
+      </div>
+    </div>
+
+    <div class="p-card fi fi-d2" data-type="systems">
+      <div class="p-card-top">
+        <span class="p-icon">📚</span>
+        <div class="p-meta">
+          <div class="p-title">ExamWarriorz</div>
+          <div class="p-period">JUL'24 – NOV'24</div>
+        </div>
+      </div>
+      <div class="p-desc">Full-stack JEE/NEET exam platform. Selenium pipeline scraped 2,700+ past-year MCQs into MongoDB. Flask REST API, timed test interface with question palette, bcrypt auth, session management, and detailed post-test analytics. CS699.</div>
+      <div class="p-tags">
+        <span class="tag">Flask</span><span class="tag">MongoDB</span><span class="tag">Selenium</span><span class="tag">CS699</span>
+      </div>
+    </div>
+
+    <div class="p-card fi" data-type="ml">
+      <div class="p-card-top">
+        <span class="p-icon">🤖</span>
+        <div class="p-meta">
+          <div class="p-title">VLM-based MCQ Solver</div>
+          <div class="p-period">APR'26 – MAY'26</div>
+        </div>
+      </div>
+      <div class="p-desc">Automated MCQ-solving system with Qwen2.5-VL-7B — chain-of-thought prompting, option elimination, confidence estimation, self-consistency voting, and batch inference. Achieved <strong style="color:var(--text)">95.24% accuracy</strong> on the test set. GNR638.</div>
+      <div class="p-tags">
+        <span class="tag">Qwen2.5-VL</span><span class="tag">CoT Prompting</span><span class="tag">VLM</span><span class="tag">GNR638</span>
+      </div>
+    </div>
+
+    <div class="p-card fi fi-d1" data-type="ml">
+      <div class="p-card-top">
+        <span class="p-icon">🔍</span>
+        <div class="p-meta">
+          <div class="p-title">LLM Tool Retrieval</div>
+          <div class="p-period">MAR'26 – APR'26</div>
+        </div>
+      </div>
+      <div class="p-desc">Benchmarked BM25 and embedding models (msmarco-MiniLM, UAE-LargeV1) for semantic tool selection on 5,000 queries. Attention-driven retrieval on Llama-3.2-1B with head pruning — achieving <strong style="color:var(--text)">2.9× Recall@1 improvement</strong>. CS728.</div>
+      <div class="p-tags">
+        <span class="tag">BM25</span><span class="tag">Llama-3.2</span><span class="tag">Attention Analysis</span><span class="tag">CS728</span>
+      </div>
+    </div>
+
+    <div class="p-card fi fi-d2" data-type="ml">
+      <div class="p-card-top">
+        <span class="p-icon">📈</span>
+        <div class="p-meta">
+          <div class="p-title">Algorithmic Trading</div>
+          <div class="p-period">JUL'24 – NOV'24</div>
+        </div>
+      </div>
+      <div class="p-desc">ML-driven portfolio management with RNN, LSTM, and Bi-LSTM for price prediction. Financial-indicator filtering pipeline achieving ~70% profit in backtesting across NSE-500 stocks. CS725.</div>
+      <div class="p-tags">
+        <span class="tag">PyTorch</span><span class="tag">LSTM</span><span class="tag">Time Series</span><span class="tag">CS725</span>
+      </div>
+    </div>
+
+    <div class="p-card fi" data-type="ml">
+      <div class="p-card-top">
+        <span class="p-icon">🌾</span>
+        <div class="p-meta">
+          <div class="p-title">Agricultural Economics Policy Simulation</div>
+          <div class="p-period">JAN'26 – MAY'26</div>
+        </div>
+      </div>
+      <div class="p-desc">End-to-end system dynamics simulation of India's agricultural sector — modeling soil, water, crop yield, land conversion, population growth, and farm economics under long-term uncertainty. Conducted policy-impact analysis across MSP reforms, subsidies, cold-storage, and soil conservation, revealing key trade-offs through century-scale scenario simulations. CS752.</div>
+      <div class="p-tags">
+        <span class="tag">Vensim</span><span class="tag">System Dynamics</span><span class="tag">CLD/SFD</span><span class="tag">Policy Analysis</span><span class="tag">CS752</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ═══════════════ SKILLS ═══════════════ -->
+<div class="section-wrap" id="skills">
+  <div class="section-eyebrow fi">// skills</div>
+  <div class="section-title fi fi-d1">Technical Arsenal</div>
+  <div class="skills-wrap">
+    <div class="sk-group fi">
+      <div class="sk-title">// languages</div>
+      <div class="sk-pills">
+        <span class="sk" data-skill="systems">C++</span>
+        <span class="sk" data-skill="ml">Python</span>
+        <span class="sk" data-skill="systems">C</span>
+        <span class="sk">Java</span>
+        <span class="sk" data-skill="systems">SQL</span>
+        <span class="sk" data-skill="systems">Bash</span>
+      </div>
+    </div>
+    <div class="sk-group fi fi-d1">
+      <div class="sk-title">// tools &amp; libraries</div>
+      <div class="sk-pills">
+        <span class="sk" data-skill="ml">PyTorch</span>
+        <span class="sk" data-skill="ml">Hugging Face</span>
+        <span class="sk" data-skill="systems">Docker</span>
+        <span class="sk">Flask</span>
+        <span class="sk" data-skill="systems">PostgreSQL</span>
+        <span class="sk">MongoDB</span>
+        <span class="sk" data-skill="ml">Scikit-learn</span>
+        <span class="sk" data-skill="ml">YOLO</span>
+        <span class="sk" data-skill="ml">Pandas</span>
+        <span class="sk" data-skill="ml">NumPy</span>
+        <span class="sk" data-skill="systems">Linux</span>
+        <span class="sk">Git</span>
+      </div>
+    </div>
+    <div class="sk-group fi fi-d2">
+      <div class="sk-title">// core concepts</div>
+      <div class="sk-pills">
+        <span class="sk" data-skill="ml">Graph Neural Nets</span>
+        <span class="sk" data-skill="ml">Machine Learning</span>
+        <span class="sk" data-skill="systems">System Design</span>
+        <span class="sk">DSA</span>
+        <span class="sk" data-skill="systems">OS Internals</span>
+        <span class="sk" data-skill="systems">DBMS</span>
+        <span class="sk" data-skill="systems">Computer Networks</span>
+        <span class="sk">OOP</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-eyebrow fi" style="margin-top:3rem">// coursework</div>
+  <div class="courses-grid fi fi-d1" style="grid-template-columns:repeat(3,1fr)">
+    <div class="c-item"><span class="c-code">CS601</span>Algorithms and Complexity</div>
+    <div class="c-item"><span class="c-code">CS699</span>Software Lab</div>
+    <div class="c-item"><span class="c-code">CS694</span>Seminar</div>
+    <div class="c-item"><span class="c-code">CS744</span>Design &amp; Engineering of Computing Systems</div>
+    <div class="c-item"><span class="c-code">CS725</span>Foundations of Machine Learning</div>
+    <div class="c-item"><span class="c-code">CS726</span>Advanced Machine Learning</div>
+    <div class="c-item"><span class="c-code">CS728</span>Organization of Web Information</div>
+    <div class="c-item"><span class="c-code">CS752</span>System Dynamics: Modeling &amp; Simulation</div>
+    <div class="c-item"><span class="c-code">CS757</span>Design &amp; Re-engineering of OOP</div>
+    <div class="c-item"><span class="c-code">CS770</span>Process Engineering</div>
+    <div class="c-item"><span class="c-code">CS777</span>M.S. R&amp;D 1</div>
+    <div class="c-item"><span class="c-code">CS778</span>M.S. R&amp;D 2</div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ═══════════════ RESPONSIBILITIES ═══════════════ -->
+<div class="section-wrap" id="responsibilities">
+  <div class="section-eyebrow fi">// leadership</div>
+  <div class="section-title fi fi-d1">Positions of Responsibility</div>
+  <div class="resp-list">
+    <div class="resp-card fi">
+      <div class="resp-title">M.S. Representative</div>
+      <div class="resp-org">Department of CSE · IIT Bombay · Apr '25 – May '26</div>
+      <ul class="resp-buls">
+        <li>Represented 100+ M.S. students across 3 batches as the primary point of contact between students, class representatives, faculty, and departmental administration.</li>
+        <li>Led planning and execution of 10+ departmental programs — orientation sessions, Convocation, Freshers, PG Valfie, and community engagement events.</li>
+      </ul>
+    </div>
+    <div class="resp-card fi fi-d1">
+      <div class="resp-title">Interview Coordinator</div>
+      <div class="resp-org">Placement Cell · IIT Bombay · Nov '24 – Dec '24 &amp; Sep '25 – Dec '25</div>
+      <ul class="resp-buls">
+        <li>Coordinated with a team of 250+ members to manage interviews and recruitment activities for 2,300+ students.</li>
+        <li>Assisted in conducting online assessments and interviews for 20+ firms, ensuring seamless and efficient processes throughout.</li>
+      </ul>
+    </div>
+    <div class="resp-card fi fi-d2">
+      <div class="resp-title">Class Representative</div>
+      <div class="resp-org">Department of CSE · IIT Bombay · Sep '24 – Mar '25</div>
+      <ul class="resp-buls">
+        <li>Represented 35+ M.S. students, advocating for student concerns and resolving queries promptly.</li>
+        <li>Facilitated communication between students and faculty, improving coordination across 10+ academic activities.</li>
+      </ul>
+    </div>
+    <div class="resp-card fi fi-d3">
+      <div class="resp-title">Teaching Assistant — CS725: Foundations of Machine Learning</div>
+      <div class="resp-org">Department of CSE · IIT Bombay · Instructor: Dr. Abir De · Autumn 2025</div>
+      <ul class="resp-buls">
+        <li>Assisted in conducting tutorials, grading assignments, and supporting students in the Foundations of Machine Learning course.</li>
+        <li>Provided guidance on course content spanning supervised learning, probabilistic models, neural networks, and evaluation methods.</li>
+      </ul>
+    </div>
+    <div class="resp-card fi fi-d1">
+      <div class="resp-title">Volunteer — RISC 2025</div>
+      <div class="resp-org">IIT Bombay · 2025</div>
+      <ul class="resp-buls">
+        <li>Volunteered at the Research Internship and Summer Camp (RISC) 2025 organized at IIT Bombay, supporting event coordination and participant engagement.</li>
+      </ul>
+    </div>
+    <div class="resp-card fi fi-d2">
+      <div class="resp-title">Volunteer — Amazon × IIT Bombay Collaboration Event</div>
+      <div class="resp-org">IIT Bombay · 2025</div>
+      <ul class="resp-buls">
+        <li>Volunteered at the Amazon–IIT Bombay collaboration event, assisting with logistics, guest coordination, and on-ground operations.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ═══════════════ ACHIEVEMENTS ═══════════════ -->
+<div class="section-wrap" id="achievements">
+  <div class="section-eyebrow fi">// achievements</div>
+  <div class="section-title fi fi-d1">Recognition</div>
+  <div class="ach-grid">
+    <div class="ach-card fi">
+      <span class="ach-icon">🥇</span>
+      <div class="ach-text"><strong>Department Rank 1</strong> in B.Tech IT from Government College of Engineering and Textile Technology, Hooghly.</div>
+    </div>
+    <div class="ach-card fi fi-d1">
+      <span class="ach-icon">🏆</span>
+      <div class="ach-text"><strong>Top 10</strong> among 200+ participants in the Foundational ML Kaggle competition organized at IIT Bombay.</div>
+    </div>
+    <div class="ach-card fi fi-d2" style="grid-column:1/-1;flex-direction:column;gap:.85rem">
+      <div style="display:flex;align-items:center;gap:1rem">
+        <span class="ach-icon">⭐</span>
+        <div class="ach-text"><strong>AA grade in 3 courses</strong> · <strong>AB grade in 6 courses</strong> at IIT Bombay — consistently among the top performers in the M.S. CSE cohort.</div>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:.4rem;padding-left:.25rem">
+        <span style="font-size:.67rem;font-family:'JetBrains Mono',monospace;padding:.25rem .65rem;border-radius:5px;background:rgba(91,112,255,.13);border:1px solid rgba(91,112,255,.25);color:#A0ADFF">CS778 · M.S. R&amp;D 2</span>
+        <span style="font-size:.67rem;font-family:'JetBrains Mono',monospace;padding:.25rem .65rem;border-radius:5px;background:rgba(91,112,255,.13);border:1px solid rgba(91,112,255,.25);color:#A0ADFF">CS777 · M.S. R&amp;D 1</span>
+        <span style="font-size:.67rem;font-family:'JetBrains Mono',monospace;padding:.25rem .65rem;border-radius:5px;background:rgba(91,112,255,.13);border:1px solid rgba(91,112,255,.25);color:#A0ADFF">CS694 · Seminar</span>
+        <span style="font-size:.67rem;font-family:'JetBrains Mono',monospace;padding:.25rem .65rem;border-radius:5px;background:rgba(91,112,255,.13);border:1px solid rgba(91,112,255,.25);color:#A0ADFF">CS699 · Software Lab</span>
+        <span style="font-size:.67rem;font-family:'JetBrains Mono',monospace;padding:.25rem .65rem;border-radius:5px;background:rgba(91,112,255,.13);border:1px solid rgba(91,112,255,.25);color:#A0ADFF">CS601 · Algorithmic Complexity</span>
+        <span style="font-size:.67rem;font-family:'JetBrains Mono',monospace;padding:.25rem .65rem;border-radius:5px;background:rgba(91,112,255,.08);border:1px solid rgba(91,112,255,.15);color:#7A8FAD;font-style:italic">+ 1 more</span>
+      </div>
+    </div>
+    <div class="ach-card fi fi-d3">
+      <span class="ach-icon">📊</span>
+      <div class="ach-text">Consistent academic excellence — <strong>9.34 CPI</strong> in M.S. CSE and <strong>9.30 CPI</strong> in B.Tech IT across both degrees.</div>
+    </div>
+    <div class="ach-card fi fi-d1">
+      <span class="ach-icon">🎯</span>
+      <div class="ach-text"><strong>GATE DA Rank 282</strong> (Data Science &amp; Artificial Intelligence) · 2024.</div>
+    </div>
+    <div class="ach-card fi fi-d2">
+      <span class="ach-icon">🧮</span>
+      <div class="ach-text"><strong>GATE CS Rank 1795</strong> (Computer Science) · 2024 — qualified for M.S. by Research CSE admission.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ FOOTER / CONTACT ═══════════════ -->
+<footer id="contact">
+  <div class="footer-name">Veenu Chhabra</div>
+  <div class="footer-sub">M.S. CSE · Roll No. 24M2135 · IIT Bombay · Powai, Mumbai</div>
+  <div class="footer-links">
+    <a href="mailto:veenuchhabra2@gmail.com" class="flink">✉ veenuchhabra2@gmail.com</a>
+    <a href="https://www.linkedin.com/in/veenu-chhabra/" class="flink" target="_blank" rel="noopener">💼 LinkedIn</a>
+    <a href="https://github.com/gods-gift" class="flink" target="_blank" rel="noopener">⌨ github.com/gods-gift</a>
+    <a href="#" class="flink">📄 Resume</a>
+  </div>
+  <div class="footer-copy">Veenu Chhabra · 24M2135 · IIT Bombay · 2026</div>
+</footer>
+
+<!-- ═══════════════ RESUME MODE SWITCHER ═══════════════ -->
+<div id="mode-banner" class="ml-mode">🧠 VIEWING: ML / Research Resume</div>
+<div id="resume-switcher">
+  <span class="rm-label">View as:</span>
+  <button class="rm-btn active ml-mode" data-mode="ml" onclick="setResumeMode('ml',this)">🧠 ML Research</button>
+  <button class="rm-btn sys-mode" data-mode="systems" onclick="setResumeMode('systems',this)">⚙️ Systems Eng.</button>
+</div>
+
+<script>
+/* ═══════ ANIMATED GRAPH CANVAS — GNN themed ═══════ */
+(function(){
+  const canvas=document.getElementById('hero-canvas');
+  const ctx=canvas.getContext('2d');
+  const N=30, MAX=190;
+  let nodes=[], raf;
+
+  const COLORS=['#5B70FF','#00C4DC','#9B6FFF'];
+
+  function resize(){
+    canvas.width=window.innerWidth;
+    canvas.height=window.innerHeight;
+  }
+
+  function init(){
+    nodes=[];
+    for(let i=0;i<N;i++){
+      const big=Math.random()<0.18;
+      nodes.push({
+        x:Math.random()*canvas.width,
+        y:Math.random()*canvas.height,
+        vx:(Math.random()-.5)*.28,
+        vy:(Math.random()-.5)*.28,
+        r:big?4+Math.random()*3:1.5+Math.random()*2,
+        col:COLORS[Math.floor(Math.random()*COLORS.length)]
+      });
+    }
+  }
+
+  function hex2rgb(h){
+    return[parseInt(h.slice(1,3),16),parseInt(h.slice(3,5),16),parseInt(h.slice(5,7),16)];
+  }
+
+  function draw(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    /* edges */
+    for(let i=0;i<N;i++){
+      for(let j=i+1;j<N;j++){
+        const dx=nodes[j].x-nodes[i].x,dy=nodes[j].y-nodes[i].y;
+        const d=Math.sqrt(dx*dx+dy*dy);
+        if(d<MAX){
+          const a=(1-d/MAX)*0.18;
+          ctx.beginPath();ctx.moveTo(nodes[i].x,nodes[i].y);ctx.lineTo(nodes[j].x,nodes[j].y);
+          ctx.strokeStyle=`rgba(91,112,255,${a})`;ctx.lineWidth=.8;ctx.stroke();
+        }
+      }
+    }
+    /* nodes */
+    for(const n of nodes){
+      const[r,g,b]=hex2rgb(n.col);
+      ctx.beginPath();ctx.arc(n.x,n.y,n.r,0,Math.PI*2);
+      ctx.fillStyle=`rgba(${r},${g},${b},0.55)`;ctx.fill();
+    }
+  }
+
+  function update(){
+    for(const n of nodes){
+      n.x+=n.vx;n.y+=n.vy;
+      if(n.x<-20)n.x=canvas.width+20;
+      if(n.x>canvas.width+20)n.x=-20;
+      if(n.y<-20)n.y=canvas.height+20;
+      if(n.y>canvas.height+20)n.y=-20;
+    }
+  }
+
+  function loop(){update();draw();raf=requestAnimationFrame(loop);}
+
+  resize();init();loop();
+  window.addEventListener('resize',()=>{resize();init();});
+})();
+
+/* ═══════ INTERSECTION OBSERVER — fade-in ═══════ */
+const io=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('vis');});
+},{threshold:0.08});
+document.querySelectorAll('.fi').forEach(el=>io.observe(el));
+
+/* ═══════ PROJECT TABS ═══════ */
+function switchTab(group,btn){
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.proj-grid').forEach(g=>g.classList.remove('active'));
+  document.getElementById(group+'-projects').classList.add('active');
+}
+
+/* ═══════ RESUME MODE SWITCHER ═══════ */
+const SUBTITLES = {
+  ml: '<strong>ML Researcher.</strong> I study how graph topology limits information flow in GNNs, build VLM pipelines for Dolby, and apply ML to everything from multimodal MCQ solving to algorithmic trading and adversarial robustness.',
+  systems: '<strong>Systems Engineer.</strong> I build from scratch in C/C++ — distributed key-value stores with consistent hashing, Docker-like container runtimes using Linux namespaces, Unix shells, and P2P file-sharing systems. Strong foundation in OS, networks, and distributed systems.'
+};
+
+const CTA = {
+  ml:      { href:'#research', text:'View Research ↓' },
+  systems: { href:'#projects', text:'View Projects ↓'  }
+};
+
+let currentMode = 'ml';
+
+function setResumeMode(mode, btn) {
+  if (mode === currentMode) return;
+  currentMode = mode;
+
+  /* buttons */
+  document.querySelectorAll('.rm-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+
+  /* banner */
+  const banner = document.getElementById('mode-banner');
+  banner.className = 'vis ' + (mode === 'ml' ? 'ml-mode' : 'sys-mode');
+  banner.textContent = mode === 'ml' ? '🧠 VIEWING: ML / Research Resume' : '⚙️ VIEWING: Systems Engineering Resume';
+  clearTimeout(banner._timer);
+  banner._timer = setTimeout(() => { banner.classList.remove('vis'); }, 3500);
+
+  /* hero subtitle & cta */
+  document.getElementById('hero-subtitle').innerHTML = SUBTITLES[mode];
+  const cta = document.getElementById('hero-cta-primary');
+  cta.href = CTA[mode].href;
+  cta.textContent = CTA[mode].text;
+
+  /* project tabs */
+  const selfTab  = document.querySelectorAll('.tab-btn')[0];
+  const courseTab = document.querySelectorAll('.tab-btn')[1];
+  if (mode === 'systems') {
+    switchTab('self', selfTab);
+  } else {
+    switchTab('course', courseTab);
+  }
+
+  /* dim/show cards by data-type */
+  document.querySelectorAll('[data-type]').forEach(card => {
+    const t = card.dataset.type;
+    if (t === mode) {
+      card.classList.remove('dimmed');
+    } else {
+      card.classList.add('dimmed');
+    }
+  });
+
+  /* skill highlighting */
+  document.querySelectorAll('[data-skill]').forEach(sk => {
+    const s = sk.dataset.skill;
+    if (s === mode) {
+      sk.classList.add('hl');
+    } else {
+      sk.classList.remove('hl');
+    }
+  });
+}
+
+/* run on load to apply default ML highlights */
+(function initMode() {
+  document.querySelectorAll('[data-skill="ml"]').forEach(sk => sk.classList.add('hl'));
+  document.querySelectorAll('[data-type="systems"]').forEach(c => c.classList.add('dimmed'));
+  /* default tab is course projects for ml mode */
+  const courseTab = document.querySelectorAll('.tab-btn')[1];
+  if (courseTab) switchTab('course', courseTab);
+})();
+
+/* ═══════ NAV SCROLL EFFECT ═══════ */
+window.addEventListener('scroll',()=>{
+  const nav=document.getElementById('main-nav');
+  nav.style.borderBottomColor=window.scrollY>60?'rgba(255,255,255,0.09)':'rgba(255,255,255,0.06)';
+},{ passive:true });
+</script>
+</body>
+</html>
